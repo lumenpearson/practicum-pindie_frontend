@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { generateStaticParams } from "@/your/path/to/generateStaticParams";  // Import generateStaticParams function
+import Image from 'next/image'; // Import next/image for image optimization
 
 import Preloader from "@/app/components/Preloader/Preloader";
 import GameNotFound from "@/app/components/GameNotFound/GameNotFound";
@@ -74,7 +75,7 @@ export default function GamePage(props) {
     }
 
     fetchData();
-  }, []);
+  }, [props.params.id]); // Include props.params.id as a dependency
 
   useEffect(() => {
     if (authContext.user && game) {
