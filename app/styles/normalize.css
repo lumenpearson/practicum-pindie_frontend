@@ -1,0 +1,128 @@
+/**
+  Normalising the box model
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/**
+  Removing left padding for list tags with a class attribute
+ */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+  Removing external margins for body and two other tags with a class attribute
+ */
+body,
+:where(blockquote, figure):where([class]) {
+  margin: 0;
+}
+
+/**
+  Removing vertical external margins for specific tags with a class attribute
+ */
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, dl):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+  Removing the default marker for an unordered list with a class attribute
+ */
+:where(ul[class]) {
+  list-style: none;
+}
+
+/**
+  Resetting vertical external margin for a paragraph,
+  declaring a local variable for the bottom margin
+  to avoid interference with a more complex selector
+ */
+p {
+  --paragraphMarginBottom: 24px;
+
+  margin-block: 0;
+}
+
+/**
+  Bottom external margin for a paragraph without a class attribute,
+  positioned not as the last among its adjacent elements
+ */
+p:where(:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+/**
+  Simplifying working with images
+ */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/**
+  Inheriting font properties for input fields
+ */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+    Useful in most situations
+    (e.g., when needing to "stick" the footer to the bottom of the site)
+   */
+  height: 100%;
+  /**
+    Smooth scroll
+   */
+  scroll-behaviour: smooth;
+}
+
+body {
+  /**
+    Useful in most situations
+    (e.g., when needing to "stick" the footer to the bottom of the site)
+   */
+  min-height: 100%;
+  /**
+    Unified line height
+   */
+  line-height: 1.5;
+}
+
+/**
+  Fixing the color change delay bug when interacting with svg elements
+ */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  Removing all animations and transitions for users
+  who prefer not to use them
+ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
