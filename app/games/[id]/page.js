@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { generateStaticParams } from "@/your/path/to/generateStaticParams";  // Import generateStaticParams function
-import Image from 'next/image'; // Import next/image for image optimization
+import Image from 'next/image';
 
 import Preloader from "@/app/components/Preloader/Preloader";
 import GameNotFound from "@/app/components/GameNotFound/GameNotFound";
@@ -19,9 +18,7 @@ import {
 import { useStore } from "@/app/store/app-store";
 
 export async function generateStaticParams() {
-  // Implement fetchData() function to fetch data
-  // Fetch data to determine which dynamic routes should be generated
-  const gamesData = await fetchData(); // Implement fetchData() function to fetch data
+  const gamesData = await fetchData();
   const params = gamesData.map(game => ({
     params: { id: game.id.toString() }
   }));
@@ -75,7 +72,7 @@ export default function GamePage(props) {
     }
 
     fetchData();
-  }, [props.params.id]); // Include props.params.id as a dependency
+  }, [props.params.id]);
 
   useEffect(() => {
     if (authContext.user && game) {
