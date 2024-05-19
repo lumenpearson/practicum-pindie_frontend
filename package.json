@@ -8,6 +8,12 @@
 		"start": "next start",
 		"lint": "next lint"
 	},
+	"license": "MIT",
+	"author": "LumenPearson <lumenpearson@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lumenpearson/practicum-pindie_frontend.git"
+  },
 	"dependencies": {
 		"@vercel/analytics": "^1.1.2",
 		"@vercel/speed-insights": "^1.0.9",
@@ -23,6 +29,7 @@
 		"eslint-config-next": "14.1.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^4.0.0",
-		"eslint-plugin-simple-import-sort": "^7.0.0"
+		"eslint-plugin-simple-import-sort": "^7.0.0",
+		"prettier": "^3.2.5"
 	}
 }
