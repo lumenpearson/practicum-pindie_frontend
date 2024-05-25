@@ -1,16 +1,21 @@
 "use client";
 
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import { isResponseOk, authorize } from "@/app/api/api-utils";
 import endpoints from "@/app/api/config";
+import { redirect } from "next/navigation";
 import { useStore } from "@/app/store/app-store";
-import Styles from "@/app/components/AuthForm/AuthForm.module.css";
+import { useState, useEffect } from "react";
+import { isResponseOk, signup } from "@/app/api/api-utils";
+import Styles from "@/app/components/SignupForm/SignupForm.module.css";
 
-export const AuthForm = (props) => {
+export const SignupForm = (props) => {
   const authContext = useStore();
-  const [authData, setAuthData] = useState({ email: "", password: "" });
+  const [authData, setAuthData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   const [message, setMessage] = useState({ status: null, text: null });
+  const [registered, setRegistered] = useState(false);
 
   const handleInput = (e) => {
     setAuthData({ ...authData, [e.target.name]: e.target.value });
@@ -18,12 +23,12 @@ export const AuthForm = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = await authorize(endpoints.login, authData);
+    const userData = await signup(endpoints.signup, authData);
     if (isResponseOk(userData)) {
-      authContext.login({ ...userData, id: userData._id }, userData.jwt);
-      setMessage({ status: "success", text: "Вы авторизовались!" });
+      setMessage({ status: "success", text: "Вы зарегистрировались!" });
+      setRegistered(true);
     } else {
-      setMessage({ status: "error", text: "Неверные почта или пароль" });
+      setMessage({ status: "error", text: userData.message });
     }
   };
 
@@ -32,17 +37,33 @@ export const AuthForm = (props) => {
 
     if (authContext.user) {
       timer = setTimeout(() => {
-        setMessage({ status: null, text: null });
-        props.closePopup();
+        redirect("/");
       }, 1000);
     }
     return () => clearTimeout(timer);
+  }, [registered]);
+
+  useEffect(() => {
+    if (authContext.user) {
+      redirect("/");
+    }
+    return;
   }, [authContext.user]);
 
   return (
     <form onSubmit={handleSubmit} className={Styles["form"]}>
-      <h2 className={Styles["form__title"]}>Авторизация</h2>
+      <h2 className={Styles["form__title"]}>Регистрация</h2>
       <div className={Styles["form__fields"]}>
+        <label className={Styles["form__field"]}>
+          <span className={Styles["form__field-title"]}>Имя пользователя</span>
+          <input
+            className={Styles["form__field-input"]}
+            onInput={handleInput}
+            name="username"
+            placeholder="a-z, A-Z, 0-9, 3-32 символа"
+            required={true}
+          />
+        </label>
         <label className={Styles["form__field"]}>
           <span className={Styles["form__field-title"]}>Email</span>
           <input
@@ -50,8 +71,8 @@ export const AuthForm = (props) => {
             onInput={handleInput}
             name="email"
             type="email"
-            required={true}
             placeholder="you@example.com"
+            required={true}
           />
         </label>
         <label className={Styles["form__field"]}>
@@ -61,8 +82,8 @@ export const AuthForm = (props) => {
             onInput={handleInput}
             name="password"
             type="password"
-            required={true}
             placeholder="***********"
+            required={true}
           />
         </label>
       </div>
@@ -74,18 +95,11 @@ export const AuthForm = (props) => {
           Очистить
         </button>
         <button className={Styles["form__submit"]} type="submit">
-          Войти
+          Зарегистироваться
         </button>
       </div>
-      <Link
-        href="/signup"
-        className={Styles["form__link"]}
-        onClick={() => props.closePopup()}
-      >
-        Зарегистрироваться
-      </Link>
     </form>
   );
 };
 
-export default AuthForm;
+export default SignupForm;

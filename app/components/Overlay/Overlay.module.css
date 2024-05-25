@@ -1,12 +1,12 @@
 .overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	inset: 0;
-	background-color: rgb(0 0 0 / 0.4);
-	display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  inset: 0;
+  background-color: rgb(0 0 0 / 0.4);
+  display: none;
 }
 
 .overlay_is-opened {
-	display: block;
+  display: block;
 }

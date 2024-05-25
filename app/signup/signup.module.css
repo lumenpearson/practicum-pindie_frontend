@@ -1,0 +1,33 @@
+.main {
+  padding: 5% 30%;
+}
+
+@media screen and (max-width: 1167px) {
+  .main {
+    padding: 5% 20%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .main {
+    padding: 5% 15%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .main {
+    padding: 5% 10%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .main {
+    padding: 5% 5%;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .main {
+    padding: 5% 4%;
+  }
+}
