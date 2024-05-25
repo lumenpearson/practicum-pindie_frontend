@@ -1,85 +1,81 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from 'next/image';
-
-import Preloader from "@/app/components/Preloader/Preloader";
-import GameNotFound from "@/app/components/GameNotFound/GameNotFound";
-
-import Styles from "@/app/games/[id]/Game.module.css";
-
-import endpoints from "@/app/api/config";
 import {
   getNormalizedGameDataById,
   isResponseOk,
   checkIfUserVoted,
   vote,
 } from "@/app/api/api-utils";
+import { useEffect, useState } from "react";
 import { useStore } from "@/app/store/app-store";
-
-export async function generateStaticParams() {
-  const gamesData = await fetchData();
-  const params = gamesData.map(game => ({
-    params: { id: game.id.toString() }
-  }));
-  return params;
-}
+import Preloader from "@/app/components/Preloader/Preloader";
+import GameNotFound from "@/app/components/GameNotFound/GameNotFound";
+import Styles from "@/app/games/[id]/Game.module.css";
+import endpoints from "@/app/api/config";
 
 export default function GamePage(props) {
   const authContext = useStore();
   const [preloaderVisible, setPreloaderVisible] = useState(true);
   const [game, setGame] = useState(null);
   const [isVoted, setIsVoted] = useState(false);
+  const [proccessingVote, setProcessingVote] = useState(false);
 
   const handleVote = async () => {
+    setProcessingVote(true);
     const jwt = authContext.token;
-
-    let usersIdArray = game.users.length ? game.users.map((user) => user.id) : [];
-    usersIdArray.push(authContext.user.id);
-    const response = await vote(
-      `${endpoints.games}/${game.id}`,
-      jwt,
-      usersIdArray
-    );
+    const response = await vote(`${endpoints.games}/${game.id}/vote`, jwt);
 
     if (isResponseOk(response)) {
-      setGame((prevGame) => ({
-        ...prevGame,
-        users: [...prevGame.users, authContext.user],
-        users_permissions_users: [
-          ...prevGame.users_permissions_users,
-          authContext.user,
-        ],
-      }));
+      setGame(() => {
+        return {
+          ...game,
+          users: [...game.users, authContext.user],
+        };
+      });
 
       setIsVoted(true);
+      setProcessingVote(false);
+    }
+  };
+
+  const handleUnvote = async () => {
+    setProcessingVote(true);
+    const jwt = authContext.token;
+    const response = await vote(`${endpoints.games}/${game.id}/unvote`, jwt);
+
+    if (isResponseOk(response)) {
+      setGame(() => {
+        return {
+          ...game,
+          users: [
+            ...game.users.filter((user) => user.id !== authContext.user.id),
+          ],
+        };
+      });
+
+      setIsVoted(false);
+      setProcessingVote(false);
     }
   };
 
   useEffect(() => {
     async function fetchData() {
       setPreloaderVisible(true);
-      const gameData = await getNormalizedGameDataById(
+      const game = await getNormalizedGameDataById(
         endpoints.games,
         props.params.id
       );
-      if (isResponseOk(gameData)) {
-        setGame(gameData);
-      } else {
-        setGame(null);
-      }
+      isResponseOk(game) ? setGame(game) : setGame(null);
+
       setPreloaderVisible(false);
     }
-
     fetchData();
-  }, [props.params.id]);
+  }, []);
 
   useEffect(() => {
-    if (authContext.user && game) {
-      setIsVoted(checkIfUserVoted(game, authContext.user.id));
-    } else {
-      setIsVoted(false);
-    }
+    authContext.user && game
+      ? setIsVoted(checkIfUserVoted(game, authContext.user.id))
+      : setIsVoted(false);
   }, [authContext.user, game]);
 
   return (
@@ -87,17 +83,12 @@ export default function GamePage(props) {
       {game ? (
         <>
           <section className={Styles["game"]}>
-            <iframe
-              className={Styles["game__iframe"]}
-              src={game.link}
-            ></iframe>
+            <iframe className={Styles["game__iframe"]} src={game.link}></iframe>
           </section>
           <section className={Styles["about"]}>
             <h2 className={Styles["about__title"]}>{game.title}</h2>
             <div className={Styles["about__content"]}>
-              <p className={Styles["about__description"]}>
-                {game.description}
-              </p>
+              <p className={Styles["about__description"]}>{game.description}</p>
               <div className={Styles["about__author"]}>
                 <p>
                   Автор:{" "}
@@ -115,11 +106,15 @@ export default function GamePage(props) {
                 </span>
               </p>
               <button
-                disabled={!authContext.isAuth || isVoted}
+                disabled={!authContext.isAuth || proccessingVote}
                 className={`button ${Styles["about__vote-button"]}`}
-                onClick={handleVote}
+                onClick={isVoted ? handleUnvote : handleVote}
               >
-                {isVoted ? "Голос учтён" : "Голосовать"}
+                {proccessingVote
+                  ? "Обработка..."
+                  : isVoted
+                    ? "Отменить"
+                    : "Голосовать"}
               </button>
             </div>
           </section>

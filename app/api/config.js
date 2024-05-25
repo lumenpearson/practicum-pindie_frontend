@@ -1,9 +1,10 @@
-export const BASE_URL = "https://api-code-2.practicum-team.ru"
+export const BASE_URL = "https://pindie-api.nomoredomainswork.ru/api";
 
 export const endpoints = {
-	games: `${BASE_URL}/games`,
-	auth: `${BASE_URL}/auth/local`,
-	me: `${BASE_URL}/users/me`,
-}
+  games: `${BASE_URL}/games`,
+  login: `${BASE_URL}/auth/login`,
+  signup: `${BASE_URL}/auth/signup`,
+  me: `${BASE_URL}/auth/me`,
+};
 
-export default endpoints
+export default endpoints;

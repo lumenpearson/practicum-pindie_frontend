@@ -97,19 +97,7 @@
   margin-bottom: 20px;
 }
 
-.form__link {
-  color: #000;
-  text-decoration: none;
-  transition: color 0.3s ease-in-out;
-  margin-top: 10px;
-}
-
-.form__link:hover {
-  color: yellow;
-  background-color: #000;
-}
-
-@media screen and (max-width: 433px) {
+@media screen and (max-width: 570px) {
   .form__reset {
     font-size: 15px;
     padding: 16px 20px;
@@ -133,7 +121,7 @@
   }
 }
 
-@media (max-width: 340px) {
+@media (max-width: 425px) {
   .form__actions {
     flex-direction: column;
   }

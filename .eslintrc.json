@@ -1,7 +1,7 @@
 {
-	"extends": ["next/core-web-vitals", "next"],
-	"rules": {
-		"jsx-quotes": [1, "prefer-double"]
-	},
-	"plugins": ["prettier"]
+  "extends": ["next/core-web-vitals", "next"],
+  "rules": {
+    "jsx-quotes": [1, "prefer-double"]
+  },
+  "plugins": ["prettier"]
 }
