@@ -1,3 +1,3 @@
 # Pindie
 
-### [Мой бэкенд.](https://https://pindie-api.nomoredomainswork.ru/)
+### [Мой бэкенд.](https://pindie-api.nomoredomainswork.ru/)
