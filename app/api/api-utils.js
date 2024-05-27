@@ -113,7 +113,7 @@ export const vote = async (url, jwt) => {
       },
     });
     if (response.status !== 200) {
-      throw new Error("Ошибка голосования/отмены голосования");
+      throw new Error("Ошибка голосования");
     }
     return await response.json();
   } catch (error) {

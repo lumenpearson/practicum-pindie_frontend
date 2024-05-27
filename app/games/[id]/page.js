@@ -21,41 +21,23 @@ export default function GamePage(props) {
   const [proccessingVote, setProcessingVote] = useState(false);
 
   const handleVote = async () => {
+    if (isVoted || proccessingVote) return;
+
     setProcessingVote(true);
     const jwt = authContext.token;
     const response = await vote(`${endpoints.games}/${game.id}/vote`, jwt);
 
     if (isResponseOk(response)) {
-      setGame(() => {
+      setGame((prevGame) => {
         return {
-          ...game,
-          users: [...game.users, authContext.user],
+          ...prevGame,
+          users: [...prevGame.users, authContext.user],
         };
       });
 
       setIsVoted(true);
-      setProcessingVote(false);
     }
-  };
-
-  const handleUnvote = async () => {
-    setProcessingVote(true);
-    const jwt = authContext.token;
-    const response = await vote(`${endpoints.games}/${game.id}/unvote`, jwt);
-
-    if (isResponseOk(response)) {
-      setGame(() => {
-        return {
-          ...game,
-          users: [
-            ...game.users.filter((user) => user.id !== authContext.user.id),
-          ],
-        };
-      });
-
-      setIsVoted(false);
-      setProcessingVote(false);
-    }
+    setProcessingVote(false);
   };
 
   useEffect(() => {
@@ -70,7 +52,7 @@ export default function GamePage(props) {
       setPreloaderVisible(false);
     }
     fetchData();
-  }, []);
+  }, [props.params.id]);
 
   useEffect(() => {
     authContext.user && game
@@ -106,14 +88,14 @@ export default function GamePage(props) {
                 </span>
               </p>
               <button
-                disabled={!authContext.isAuth || proccessingVote}
+                disabled={!authContext.isAuth || proccessingVote || isVoted}
                 className={`button ${Styles["about__vote-button"]}`}
-                onClick={isVoted ? handleUnvote : handleVote}
+                onClick={handleVote}
               >
                 {proccessingVote
                   ? "Обработка..."
                   : isVoted
-                    ? "Отменить"
+                    ? "Голос отдан"
                     : "Голосовать"}
               </button>
             </div>
