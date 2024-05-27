@@ -27,8 +27,6 @@
 .banner__image {
   width: 100%;
   max-width: 228px;
-  height: auto;
-  position: relative;
   box-shadow: 8px 8px 0 black;
   margin-right: 40px;
   align-self: center;

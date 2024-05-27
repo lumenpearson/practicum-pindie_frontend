@@ -1,14 +1,13 @@
-"use client";
+import { useStore } from "@/app/store/app-store";
+import Styles from "./Overlay.module.css";
 
-import Styles from "@/app/components/Overlay/Overlay.module.css";
+export const Overlay = () => {
+  
+  const store = useStore();
 
-export const Overlay = (props) => {
   return (
-    <div
-      className={`${Styles["overlay"]} ${props.isOpened && Styles["overlay_is-opened"]}`}
-      onClick={props.closePopup}
+    <div onClick={store.closePopup}
+      className={`${Styles["overlay"]} ${store.popupIsOpened && Styles["overlay_is-opened"]}`}
     ></div>
   );
 };
-
-export default Overlay;

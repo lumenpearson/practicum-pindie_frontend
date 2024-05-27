@@ -66,6 +66,7 @@
   pointer-events: none;
 }
 
+
 @media (width <= 1200px) {
   .game {
     padding: 72px 32px;

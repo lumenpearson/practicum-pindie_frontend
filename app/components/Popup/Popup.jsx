@@ -1,13 +1,14 @@
-"use client";
+import { useStore } from "@/app/store/app-store";
+import Styles from "./Popup.module.css";
 
-import Styles from "@/app/components/Popup/Popup.module.css";
 
 export const Popup = (props) => {
+
+  const store = useStore();
+
   return (
-    <div
-      className={`${Styles["popup"]} ${props.isOpened && Styles["popup_is-opened"]}`}
-    >
-      <button className={Styles["close"]} onClick={props.closePopup}>
+    <div className={`${Styles["popup"]} ${store.popupIsOpened && Styles["popup_is-opened"]}`}>
+      <button className={Styles["close"]} onClick={store.closePopup}>
         <svg
           className={Styles["close-icon"]}
           xmlns="http://www.w3.org/2000/svg"
@@ -24,5 +25,3 @@ export const Popup = (props) => {
     </div>
   );
 };
-
-export default Popup;

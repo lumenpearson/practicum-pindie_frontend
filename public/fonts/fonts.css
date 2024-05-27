@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'Rubic One';
+  src: url(./rubic-one.woff);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anonymous Pro';
+  src: url(./anonymouspro-regular.woff);
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anonymous Pro';
+  src: url(./anonymouspro-bold.woff);
+  font-weight: bold;
+  font-display: swap;
+}

@@ -1,5 +1,5 @@
-import NotFoundImage from "@/app/components/GameNotFound/NotFoundImage";
-import Styles from "@/app/components/GameNotFound/GameNotFound.module.css";
+import Styles from './NotFound.module.css';
+import {NotFoundImage} from './not-found.jsx';
 
 export const GameNotFound = () => {
   return (
@@ -7,7 +7,5 @@ export const GameNotFound = () => {
       <NotFoundImage />
       <h2 className={Styles["not-found__text"]}>Такой игры не существует :(</h2>
     </div>
-  );
+  )
 };
-
-export default GameNotFound;

@@ -1,74 +1,125 @@
-.card {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  transition:
-    background-color 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
-}
+.list-section:not(:first-of-type) {
+    margin-top: 40px;
+  }
+  
+  .list-section__title {
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 4px solid black;
+    padding: 20px 40px 14px;
+    position: relative;
+  }
+  
+  .list-section__title::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 25px;
+    background-color: #ffff00;
+    width: 60px;
+    height: 45px;
+    z-index: -1;
+  }
+  
+  .cards-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+    gap: 45px;
+    padding: 68px 120px;
+  }
+  
+  .card-list__link {
+    display: flex;
+    height: 100%;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .card-list__link:hover {
+    background-color: black;
+  }
+  
+  .card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    background-color: #FFFF00;
+    transform: translate(-8px, -8px);
+  }
+  
+  .card__image {
+    width: 100%;
+    aspect-ratio: 375 / 250;
+    object-fit: cover;
+    object-position: center;
+    border-bottom: 1px solid black;
+  }
+  
+  .card__content-block {
+    padding: 16px 16px 35px;
+    border: 4px solid black;
+    flex-grow: 1;
+    display: grid;
+  }
+  
+  .card__title {
+    font-size: 30px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  
+  .card__description {
+    line-height: 1.1;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  
+  .card__info-container {
+    align-self: end;
+  }
+  
+  .card__author {
+    font-size: 20px;
+  }
+  
+  .card__author .card__accent {
+    font-family: 'Rubic One', sans-serif;
+  }
+  
+  .card__votes {
+    font-size: 20px;
+  }
+  
+  .card__votes .card__accent {
+    font-family: 'Rubic One', sans-serif;
+    display: inline-block;
+    padding: 4px 17px 25px 4px;
+    background-color: black;
+    color: white;
+  }
 
-.card:hover {
-  background-color: #ffff00;
-  transform: translate(-8px, -8px);
-}
+  @media (width <= 1440px) {
 
-.card__image {
-  width: 100% !important;
-  height: auto !important;
-  position: relative !important;
-  aspect-ratio: 375 / 250;
-  object-fit: cover;
-  object-position: center;
-  border-bottom: 1px solid black;
-  background-color: black;
-}
+  .cards-list {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 40px;
+  }
 
-.card__content-block {
-  padding: 16px 16px 35px;
-  border: 4px solid black;
-  flex-grow: 1;
-  display: grid;
-}
+  .list-section__title {
+    font-size: 26px;
+  }
 
-.card__title {
-  font-size: 30px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
+  .list-section__title::before {
+    width: 55px;
+    height: 42px;
+  }
 
-.card__description {
-  line-height: 1.1;
-  margin-bottom: 20px;
-  font-size: 20px;
-}
-
-.card__info-container {
-  align-self: end;
-}
-
-.card__author {
-  font-size: 20px;
-}
-
-.card__author .card__accent {
-  font-family: "Rubic One", sans-serif;
-}
-
-.card__votes {
-  font-size: 20px;
-}
-
-.card__votes .card__accent {
-  font-family: "Rubic One", sans-serif;
-  display: inline-block;
-  padding: 4px 17px 25px 4px;
-  background-color: black;
-  color: white;
-}
-
-@media (width <= 1440px) {
   .card__content-block {
     padding: 16px 16px 26px;
   }
@@ -93,3 +144,28 @@
     padding: 4px 15px 15px 4px;
   }
 }
+
+@media (width <= 1024px) {
+
+  .cards-list {
+    padding: 68px 40px;
+    gap: 30px;
+  }
+}
+
+@media (width <= 650px) {
+
+  .cards-list {
+    padding: 68px 14px;
+  }
+
+  .list-section__title {
+    padding: 20px 14px 14px;
+  }
+
+  .list-section__title::before {
+    left: 6px;
+  }
+}
+
+
