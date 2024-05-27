@@ -1,43 +1,56 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import endpoints from "@/app/api/config";
 import {
   getNormalizedGameDataById,
   isResponseOk,
   checkIfUserVoted,
   vote,
 } from "@/app/api/api-utils";
-import { useEffect, useState } from "react";
 import { useStore } from "@/app/store/app-store";
 import Preloader from "@/app/components/Preloader/Preloader";
 import GameNotFound from "@/app/components/GameNotFound/GameNotFound";
 import Styles from "@/app/games/[id]/Game.module.css";
-import endpoints from "@/app/api/config";
 
 export default function GamePage(props) {
   const authContext = useStore();
   const [preloaderVisible, setPreloaderVisible] = useState(true);
   const [game, setGame] = useState(null);
   const [isVoted, setIsVoted] = useState(false);
-  const [proccessingVote, setProcessingVote] = useState(false);
 
   const handleVote = async () => {
-    if (isVoted || proccessingVote) return;
-
-    setProcessingVote(true);
     const jwt = authContext.token;
     const response = await vote(`${endpoints.games}/${game.id}/vote`, jwt);
 
     if (isResponseOk(response)) {
-      setGame((prevGame) => {
+      setGame(() => {
         return {
-          ...prevGame,
-          users: [...prevGame.users, authContext.user],
+          ...game,
+          users: [...game.users, authContext.user],
         };
       });
 
       setIsVoted(true);
     }
-    setProcessingVote(false);
+  };
+
+  const handleUnvote = async () => {
+    const jwt = authContext.token;
+    const response = await vote(`${endpoints.games}/${game.id}/unvote`, jwt);
+
+    if (isResponseOk(response)) {
+      setGame(() => {
+        return {
+          ...game,
+          users: [
+            ...game.users.filter((user) => user.id !== authContext.user.id),
+          ],
+        };
+      });
+
+      setIsVoted(false);
+    }
   };
 
   useEffect(() => {
@@ -51,8 +64,9 @@ export default function GamePage(props) {
 
       setPreloaderVisible(false);
     }
+
     fetchData();
-  }, [props.params.id]);
+  }, []);
 
   useEffect(() => {
     authContext.user && game
@@ -88,15 +102,11 @@ export default function GamePage(props) {
                 </span>
               </p>
               <button
-                disabled={!authContext.isAuth || proccessingVote || isVoted}
+                disabled={!authContext.isAuth}
                 className={`button ${Styles["about__vote-button"]}`}
-                onClick={handleVote}
+                onClick={isVoted ? handleUnvote : handleVote}
               >
-                {proccessingVote
-                  ? "Обработка..."
-                  : isVoted
-                    ? "Голос отдан"
-                    : "Голосовать"}
+                {isVoted ? "Отменить" : "Голосовать"}
               </button>
             </div>
           </section>
