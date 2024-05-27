@@ -38,26 +38,6 @@ export default function GamePage(props) {
     }
   };
 
-  const handleUnvote = async () => {
-    setProcessingVote(true);
-    const jwt = authContext.token;
-    const response = await vote(`${endpoints.games}/${game.id}/unvote`, jwt);
-
-    if (isResponseOk(response)) {
-      setGame(() => {
-        return {
-          ...game,
-          users: [
-            ...game.users.filter((user) => user.id !== authContext.user.id),
-          ],
-        };
-      });
-
-      setIsVoted(false);
-      setProcessingVote(false);
-    }
-  };
-
   useEffect(() => {
     async function fetchData() {
       setPreloaderVisible(true);
@@ -108,12 +88,12 @@ export default function GamePage(props) {
               <button
                 disabled={!authContext.isAuth || proccessingVote}
                 className={`button ${Styles["about__vote-button"]}`}
-                onClick={isVoted ? handleUnvote : handleVote}
+                onClick={isVoted && handleVote}
               >
                 {proccessingVote
                   ? "Обработка..."
                   : isVoted
-                    ? "Отменить"
+                    ? "Голос отдан"
                     : "Голосовать"}
               </button>
             </div>
