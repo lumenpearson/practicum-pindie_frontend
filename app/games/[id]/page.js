@@ -1,9 +1,6 @@
-// app/games/[id]/page.js
-
 "use client";
 
 import { useEffect, useState } from "react";
-
 import endpoints from "@/app/api/config";
 import {
   getNormalizedGameDataById,
@@ -12,10 +9,8 @@ import {
   vote,
 } from "@/app/api/api-utils";
 import { useStore } from "@/app/store/app-store";
-
 import Preloader from "@/app/components/Preloader/Preloader";
 import GameNotFound from "@/app/components/GameNotFound/GameNotFound";
-
 import Styles from "@/app/games/[id]/Game.module.css";
 
 export default function GamePage(props) {
