@@ -1,5 +1,5 @@
 .promo {
-  background-color: #2400ff;
+  background-color: #2400FF;
   color: white;
   padding: 40px 260px;
   gap: 20px;
@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
 }
+
 
 .promo__title {
   font-size: 42px;
@@ -28,8 +29,6 @@
 }
 
 .promo__image {
-  height: auto;
-  width: auto;
   align-self: end;
   justify-self: end;
 }
@@ -42,7 +41,7 @@
 
 .promo__button:hover {
   background-color: white;
-  color: #2400ff;
+  color: #2400FF;
 }
 
 .promo-code {
@@ -78,6 +77,7 @@
 }
 
 @media (width <= 768px) {
+
   .promo__description {
     margin-left: 0;
   }
@@ -99,3 +99,4 @@
     justify-self: start;
   }
 }
+

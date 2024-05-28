@@ -1,43 +1,22 @@
 {
-  "name": "practicum-pindie_backend",
-  "version": "2.0.0",
+  "name": "pindie-frontend",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "restart": "cross-env pm2 restart ecosystem.config.js",
-    "start": "cross-env pm2 start ecosystem.config.js",
-    "stop": "cross-env pm2 stop ecosystem.config.js",
-    "build": "prettier --check . && next build",
-    "build:local": "prettier --write . && next build",
-    "format": "prettier --write .",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint"
   },
-  "license": "MIT",
-  "author": "LumenPearson <lumenpearson@gmail.com>",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lumenpearson/practicum-pindie_frontend.git"
-  },
-  "bugs": {
-    "url": "https://github.com/lumenpearson/practicum-pindie_frontend/issues"
-  },
-  "homepage": "https://github.com/lumenpearson/practicum-pindie_frontend/readme",
   "dependencies": {
-    "cross-env": "^7.0.3",
-    "next": "^14.1.1",
-    "pm2": "^5.3.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sharp": "^0.33.2",
+    "next": "14.1.1",
+    "react": "^18",
+    "react-dom": "^18",
     "swiper": "^11.0.7",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.1.0",
-    "eslint-config-prettier": "^8.10.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "prettier": "^3.2.5"
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.3"
   }
 }

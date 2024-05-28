@@ -1,10 +1,8 @@
-export const BASE_URL = "https://pindie-api.nomoredomainswork.ru/api";
+export const BASE_URL = 'http://localhost:3010/api';
 
 export const endpoints = {
-  games: `${BASE_URL}/games`,
-  login: `${BASE_URL}/auth/login`,
-  signup: `${BASE_URL}/auth/signup`,
-  me: `${BASE_URL}/auth/me`,
+    games: `${BASE_URL}/games`,
+    auth: `${BASE_URL}/auth/login`,
+    me: `${BASE_URL}/me`,
+    register: `${BASE_URL}/auth/register`
 };
-
-export default endpoints;

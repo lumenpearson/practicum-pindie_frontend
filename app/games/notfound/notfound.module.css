@@ -1,0 +1,36 @@
+.container  {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button {
+    color: white;
+    border-color: white;
+    margin-left: 108px;
+    margin: 20px;
+}
+
+.textNormalize {
+    display: inline-block;
+    margin: 20px;
+}
+
+.leftSection {
+    display: flex;
+    flex-direction: column;
+    margin: 100px;
+
+}
+
+.image {
+    margin-right: 150px;
+}
+
+@media (width <= 1200px) {
+    .container  {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 60vh;
+    max-height: 100%;
+    margin: 20px 120px;
+}
+.section_wraper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

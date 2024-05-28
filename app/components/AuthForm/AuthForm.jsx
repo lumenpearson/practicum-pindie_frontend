@@ -1,44 +1,39 @@
 "use client";
-
-import Link from "next/link";
+import Styles from "./AuthForm.module.css";
 import { useState, useEffect } from "react";
-import { isResponseOk, authorize } from "@/app/api/api-utils";
-import endpoints from "@/app/api/config";
+import { endpoints } from "@/app/api/config";
+import { authorize } from "@/app/api/api utils";
+import { isResponseOk } from "@/app/api/api utils";
 import { useStore } from "@/app/store/app-store";
-import Styles from "@/app/components/AuthForm/AuthForm.module.css";
+import Link from 'next/link'
 
 export const AuthForm = (props) => {
   const authContext = useStore();
   const [authData, setAuthData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState({ status: null, text: null });
-
   const handleInput = (e) => {
     setAuthData({ ...authData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = await authorize(endpoints.login, authData);
+    const userData = await authorize(endpoints.auth, authData);
     if (isResponseOk(userData)) {
-      authContext.login({ ...userData, id: userData._id }, userData.jwt);
+      authContext.login({...userData, id: userData._id}, userData.jwt);
       setMessage({ status: "success", text: "Вы авторизовались!" });
     } else {
       setMessage({ status: "error", text: "Неверные почта или пароль" });
     }
   };
-
   useEffect(() => {
     let timer;
-
     if (authContext.user) {
       timer = setTimeout(() => {
         setMessage({ status: null, text: null });
-        props.closePopup();
+        props.close();
       }, 1000);
     }
     return () => clearTimeout(timer);
   }, [authContext.user]);
-
   return (
     <form onSubmit={handleSubmit} className={Styles["form"]}>
       <h2 className={Styles["form__title"]}>Авторизация</h2>
@@ -46,22 +41,20 @@ export const AuthForm = (props) => {
         <label className={Styles["form__field"]}>
           <span className={Styles["form__field-title"]}>Email</span>
           <input
-            className={Styles["form__field-input"]}
             onInput={handleInput}
+            className={Styles["form__field-input"]}
             name="email"
             type="email"
-            required={true}
-            placeholder="you@example.com"
+            placeholder="hello@world.com"
           />
         </label>
         <label className={Styles["form__field"]}>
           <span className={Styles["form__field-title"]}>Пароль</span>
           <input
-            className={Styles["form__field-input"]}
             onInput={handleInput}
-            name="password"
+            className={Styles["form__field-input"]}
             type="password"
-            required={true}
+            name="password"
             placeholder="***********"
           />
         </label>
@@ -77,15 +70,7 @@ export const AuthForm = (props) => {
           Войти
         </button>
       </div>
-      <Link
-        href="/signup"
-        className={Styles["form__link"]}
-        onClick={() => props.closePopup()}
-      >
-        Зарегистрироваться
-      </Link>
+      <Link href="/register">Нет учётной записи? <span className={Styles['register_link']}>Зарегистрироваться</span></Link>
     </form>
   );
 };
-
-export default AuthForm;
