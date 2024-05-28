@@ -3,7 +3,7 @@ import Styles from './RegisterForm.module.css';
 import {register} from "@/app/api/api utils";
 import {endpoints} from "@/app/api/config";
 import {useEffect, useState} from "react";
-import {isResponseOk} from "@/app/api/api utils";
+import {isResponseOk} from "@/app/api/api-utils";
 import {useStore} from '@/app/store/app-store';
 
 
