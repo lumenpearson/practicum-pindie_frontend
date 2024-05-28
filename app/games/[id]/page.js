@@ -3,7 +3,7 @@ import Styles from "./Game.module.css";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {endpoints} from '@/app/api/config';
-import {checkIfUserVoted, getNormalizedGameDataById, isResponseOk, vote} from "@/app/api/api utils";
+import {checkIfUserVoted, getNormalizedGameDataById, isResponseOk, vote} from "@/app/api/api-utils";
 import {Preloader} from "@/app/components/Preloader/Preloader";
 import {useStore} from "@/app/store/app-store";
 
