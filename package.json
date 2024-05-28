@@ -4,16 +4,22 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "restart": "cross-env pm2 restart ecosystem.config.js",
+    "start": "cross-env pm2 start ecosystem.config.js",
+    "stop": "cross-env pm2 stop ecosystem.config.js",
+    "build": "prettier --check . && next build",
+    "build:local": "prettier --write . && next build",
+    "format": "prettier --write .",
     "lint": "next lint"
   },
   "dependencies": {
     "next": "14.1.1",
     "react": "^18",
     "react-dom": "^18",
+    "cross-env": "^7.0.3",
     "swiper": "^11.0.7",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.2",
+    "pm2": "^5.3.1"
   },
   "devDependencies": {
     "eslint": "8.57.0",
