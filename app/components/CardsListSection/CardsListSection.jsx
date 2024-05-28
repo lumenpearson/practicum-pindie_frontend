@@ -1,8 +1,7 @@
-"use client";
+import Styles from "./CardsListSection.module.css";
+import { CardsList } from "./CardsList";
+import { CardsSlider } from "./CardsSlider";
 
-import CardsList from "@/app/components/CardsListSection/CardsList";
-import CardsSlider from "@/app/components/CardsListSection/CardsSlider";
-import Styles from "@/app/components/CardsListSection/CardsListSection.module.css";
 
 export const CardsListSection = (props) => {
   return (
@@ -10,13 +9,7 @@ export const CardsListSection = (props) => {
       <h2 className={Styles["list-section__title"]} id={props.id}>
         {props.title}
       </h2>
-      {props.type === "slider" ? (
-        <CardsSlider data={props.data} />
-      ) : (
-        <CardsList data={props.data} />
-      )}
+      {props.type === 'slider' ? <CardsSlider data={props.data} /> : <CardsList data={props.data} />}
     </section>
   );
 };
-
-export default CardsListSection;

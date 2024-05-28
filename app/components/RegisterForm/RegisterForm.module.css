@@ -50,9 +50,7 @@
   text-transform: uppercase;
   border: none;
   padding: 16px 24px;
-  transition:
-    color 0.3s ease-in-out,
-    background-color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 .form__reset:hover {
@@ -61,7 +59,7 @@
 }
 
 .form__reset:disabled {
-  opacity: 0.9;
+  opacity: .9;
   pointer-events: none;
 }
 
@@ -79,9 +77,7 @@
   text-transform: uppercase;
   border: none;
   padding: 16px 24px;
-  transition:
-    color 0.3s ease-in,
-    background-color 0.3s ease-in;
+  transition: color 0.3s ease-in, background-color 0.3s ease-in;
 }
 
 .form__submit:hover {
@@ -89,40 +85,10 @@
 }
 
 .form__submit:disabled {
-  opacity: 0.5;
+  opacity: .5;
   pointer-events: none;
 }
 
 .form__message {
   margin-bottom: 20px;
-}
-
-@media screen and (max-width: 570px) {
-  .form__reset {
-    font-size: 15px;
-    padding: 16px 20px;
-  }
-
-  .form__submit {
-    font-size: 15px;
-    padding: 16px 20px;
-  }
-
-  .form__field-title {
-    font-size: 18px;
-  }
-
-  .form__field-input {
-    font-size: 18px;
-  }
-
-  .form__title {
-    font-size: 28px;
-  }
-}
-
-@media (max-width: 425px) {
-  .form__actions {
-    flex-direction: column;
-  }
 }

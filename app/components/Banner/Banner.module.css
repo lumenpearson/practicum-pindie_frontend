@@ -7,13 +7,13 @@
 
 .banner__title {
   font-size: 42px;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   max-width: 708px;
 }
 
 .banner__text-block {
   line-height: 1.6;
-  margin-bottom: 40px;
+  margin-bottom: 70px;
   padding-left: 80px;
   max-width: 630px;
   letter-spacing: 1.5;
@@ -27,8 +27,6 @@
 .banner__image {
   width: 100%;
   max-width: 228px;
-  height: auto;
-  position: relative;
   box-shadow: 8px 8px 0 black;
   margin-right: 40px;
   align-self: center;
@@ -42,6 +40,7 @@
 }
 
 @media (width <= 1024px) {
+  
   .banner {
     grid-template-columns: 1fr;
     padding: 80px 40px;
@@ -75,3 +74,4 @@
     padding: 80px 14px;
   }
 }
+

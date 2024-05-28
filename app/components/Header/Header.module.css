@@ -18,8 +18,6 @@
 
 .logo__image {
   width: 100%;
-  height: auto;
-  position: relative;
 }
 
 .menu {
@@ -52,10 +50,7 @@
   font-size: 30px;
   transition: background-color 0.3s ease-in-out;
   width: 100%;
-  box-shadow:
-    4px 4px 0 black,
-    -4px -4px 0 black,
-    -4px 4px 0 black,
+  box-shadow: 4px 4px 0 black, -4px -4px 0 black, -4px 4px 0 black,
     4px -4px 0 black;
 }
 
